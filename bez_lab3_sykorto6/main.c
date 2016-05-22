@@ -1,4 +1,5 @@
 // Syky.
+// https://github.com/syky27/BI-BEZ
 
 #include <stdio.h>
 #include <stdlib.h>
