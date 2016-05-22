@@ -58,7 +58,7 @@ void encryptImage(const char* inputFile, const char* outputFile, const char* mod
 
     fflush(ptrOutputFile);
     fclose(ptrOutputFile);
-    fclose(ptrInputFile);
+
 
     free(plainText);
     free(cypheredText);
@@ -115,7 +115,6 @@ void decryptImage(const char* inputFile, const char* outputFile,const char* mod)
 
     fflush(ptrOutputFile);
     fclose(ptrOutputFile);
-    fclose(ptrInputFile);
 
     free(plainText);
     free(cypheredText);
