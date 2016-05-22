@@ -3,29 +3,34 @@
 #include <openssl/evp.h>
 #include <string.h>
 
-
-
 void EncryptImage(const char* inputFile, const char* outputFile,const char* mod) {
 
-    unsigned char key[EVP_MAX_KEY_LENGTH] = "Romane je to 54";  // klic pro sifrovani
-    unsigned char iv[EVP_MAX_IV_LENGTH] = "inicial. vektor";  // inicializacni vektor
-    int i;
+    unsigned char key[EVP_MAX_KEY_LENGTH] = "kjfahjkfhsajkhfkjas";
+    unsigned char iv[EVP_MAX_IV_LENGTH] = "dkasjkd";
     int tmpLength = 0;
 
-    EVP_CIPHER_CTX ctx; // struktura pro kontext
-
-
-    /* Sifrovani */
+    EVP_CIPHER_CTX ctx;
 
     if(!strcmp(mod,"cbc"))
-        EVP_EncryptInit(&ctx, EVP_des_cbc(), key, iv);  // nastaveni kontextu pro sifrovani
+        EVP_EncryptInit(&ctx, EVP_des_cbc(), key, iv);
     else
-        EVP_EncryptInit(&ctx, EVP_des_ecb(), key, iv);  // nastaveni kontextu pro sifrovani
+        EVP_EncryptInit(&ctx, EVP_des_ecb(), key, iv);
 
     unsigned char *ot;
-    long input_file_size;
+    unsigned long long input_file_size;
+
     FILE * pFile = fopen(inputFile, "rb");
     FILE * outFile = fopen(outputFile, "wb");
+
+    if (pFile == NULL) {
+        perror("Error");
+        exit(1);
+    }
+
+    if (outFile == NULL) {
+        perror("Error");
+        exit(1);
+    }
 
     fseek(pFile, 0, SEEK_END);
     input_file_size = ftell(pFile);
@@ -43,8 +48,8 @@ void EncryptImage(const char* inputFile, const char* outputFile,const char* mod)
     fwrite (ot , sizeof(unsigned char), blockbyte, outFile);
 
     unsigned char *ot_tmp = ot + blockbyte;
-    EVP_EncryptUpdate(&ctx,  st, &stLength, ot_tmp, otLength);  // sifrovani ot
-    EVP_EncryptFinal(&ctx, &st[stLength], &tmpLength);  // ziskani sifrovaneho textu z kontextu
+    EVP_EncryptUpdate(&ctx,  st, &stLength, ot_tmp, otLength);
+    EVP_EncryptFinal(&ctx, &st[stLength], &tmpLength);
     stLength += tmpLength;
 
     fwrite (st , sizeof(unsigned char), stLength, outFile);
@@ -59,28 +64,36 @@ void EncryptImage(const char* inputFile, const char* outputFile,const char* mod)
 
 void DecryptImage(const char* inputFile, const char* outputFile,const char* mod) {
 
-    unsigned char key[EVP_MAX_KEY_LENGTH] = "Romane je to 54";  // klic pro sifrovani
-    unsigned char iv[EVP_MAX_IV_LENGTH] = "inicial. vektor";  // inicializacni vektor
+    unsigned char key[EVP_MAX_KEY_LENGTH] = "kjfahjkfhsajkhfkjas";
+    unsigned char iv[EVP_MAX_IV_LENGTH] = "dkasjkd";
     int i;
 
 
     int tmpLength = 0;
 
-    EVP_CIPHER_CTX ctx; // struktura pro kontext
-
-
-    /* Sifrovani */
+    EVP_CIPHER_CTX ctx;
 
     if(!strcmp(mod,"cbc"))
-        EVP_DecryptInit(&ctx, EVP_des_cbc(), key, iv);  // nastaveni kontextu pro sifrovani
+        EVP_DecryptInit(&ctx, EVP_des_cbc(), key, iv);
     else
-        EVP_DecryptInit(&ctx, EVP_des_ecb(), key, iv);  // nastaveni kontextu pro sifrovani
+        EVP_DecryptInit(&ctx, EVP_des_ecb(), key, iv);
 
 
     unsigned char *ot;
     long input_file_size;
     FILE * pFile = fopen(inputFile, "rb");
     FILE * outFile = fopen(outputFile, "wb");
+
+        if (pFile == NULL) {
+        perror("Error");
+        exit(1);
+    }
+
+    if (outFile == NULL) {
+        perror("Error");
+        exit(1);
+    }
+
     fseek(pFile, 0, SEEK_END);
     input_file_size = ftell(pFile);
     rewind(pFile);
@@ -97,8 +110,8 @@ void DecryptImage(const char* inputFile, const char* outputFile,const char* mod)
 
     fwrite (ot , sizeof(unsigned char), blockbyte, outFile);
     unsigned char *ot_tmp = ot + blockbyte;
-    EVP_DecryptUpdate(&ctx,  st, &stLength, ot_tmp, otLength);  // sifrovani ot
-    EVP_DecryptFinal(&ctx, &st[stLength], &tmpLength);  // ziskani sifrovaneho textu z kontextu
+    EVP_DecryptUpdate(&ctx,  st, &stLength, ot_tmp, otLength);
+    EVP_DecryptFinal(&ctx, &st[stLength], &tmpLength);
     stLength += tmpLength;
 
     fwrite (st , sizeof(unsigned char), stLength, outFile);

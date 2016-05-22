@@ -16,7 +16,7 @@ rm -rf $i.jpg
 ./3.out -d $i-encrypted-ecb.bmp $i-decrypted-ecb.bmp ecb;
 
 
-diff $i.bmp $i-decrypted-cbc.bmp && echo "Test $i for CBC succeded"
-diff $i.bmp $i-decrypted-ecb.bmp && echo "Test $i for ECB succeded"
+diff $i.bmp $i-decrypted-cbc.bmp && echo "Test image $i for CBC succeded"
+diff $i.bmp $i-decrypted-ecb.bmp && echo "Test image $i for ECB succeded"
 
 done;
