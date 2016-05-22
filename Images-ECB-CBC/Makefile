@@ -3,7 +3,7 @@ UNAME := $(shell uname)
 
 ifeq ($(UNAME), Linux)
 CC=g++
-CFLAGS= -Wall -std=c++11 -lcrypto
+CFLAGS= -o 3.out -Wall -std=c++11 -lcrypto
 endif
 ifeq ($(UNAME), Darwin)
 CC=/usr/local/Cellar/gcc/5.3.0/bin/gcc-5
