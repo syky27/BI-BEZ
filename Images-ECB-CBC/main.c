@@ -5,7 +5,12 @@
 #include <openssl/evp.h>
 #include <string.h>
 
-void EncryptImage(const char* inputFile, const char* outputFile,const char* mod) {
+
+void checkIfFileIsBitmap(FILE * file);
+void checkIfFileHasExecute(FILE * file);
+
+
+void EncryptImage(const char* inputFile, const char* outputFile, const char* mod) {
 
     unsigned char key[EVP_MAX_KEY_LENGTH] = "kjfahjkfhsajkhfkjas";
     unsigned char iv[EVP_MAX_IV_LENGTH] = "dkasjkd";
@@ -23,16 +28,10 @@ void EncryptImage(const char* inputFile, const char* outputFile,const char* mod)
 
     FILE * pFile = fopen(inputFile, "rb");
     FILE * outFile = fopen(outputFile, "wb");
-
-    if (pFile == NULL) {
-        perror("Error");
-        exit(1);
-    }
-
-    if (outFile == NULL) {
-        perror("Error");
-        exit(1);
-    }
+    
+    checkIfFileHasExecute(pFile);
+    checkIfFileHasExecute(outFile);
+    checkIfFileIsBitmap(pFile);
 
     fseek(pFile, 0, SEEK_END);
     input_file_size = ftell(pFile);
@@ -86,15 +85,10 @@ void DecryptImage(const char* inputFile, const char* outputFile,const char* mod)
     FILE * pFile = fopen(inputFile, "rb");
     FILE * outFile = fopen(outputFile, "wb");
 
-        if (pFile == NULL) {
-        perror("Error");
-        exit(1);
-    }
+    checkIfFileHasExecute(pFile);
+    checkIfFileHasExecute(outFile);
+    checkIfFileIsBitmap(pFile);
 
-    if (outFile == NULL) {
-        perror("Error");
-        exit(1);
-    }
 
     fseek(pFile, 0, SEEK_END);
     input_file_size = ftell(pFile);
@@ -131,8 +125,25 @@ void printUsage(void){
     exit(1);
 }
 
-int main(int argc, char** argv) {
+void checkIfFileIsBitmap(FILE * file) {
+    char BMTestArray[2];
+    if (fread(BMTestArray, 1, 2, file) == 2){
+      if (!(BMTestArray[0] == 66 || BMTestArray[1] == 77)) {
+          printf("Given file is not a bitmap\n");
+          printUsage();
+      }
+   }
+}
 
+void checkIfFileHasExecute(FILE * file) {
+    if (file == NULL) {
+        perror("Error");
+        exit(1);
+    }
+}
+
+
+int main(int argc, char** argv) {
     if (argc != 5){
         printUsage();
     } else {
