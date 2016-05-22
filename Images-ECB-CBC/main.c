@@ -122,24 +122,22 @@ int main(int argc, char** argv) {
         printUsage();
     } else {
         if (!strcmp(argv[1],"-d")) {
-            if (strcmp(argv[4],"cbc") || strcmp(argv[4],"ecb")) {
+            if (strcmp(argv[4],"cbc") && strcmp(argv[4],"ecb")) {
+                printf("Invalid cypher type\n");
                 printUsage();
             }
             DecryptImage(argv[2], argv[3], argv[4]);
         } else if (!strcmp(argv[1],"-e")) {
+            if (strcmp(argv[4],"cbc") && strcmp(argv[4],"ecb")) {
+                printf("Invalid cypher type\n");
+                printUsage();
+            }
             EncryptImage(argv[2], argv[3], argv[4]);
         } else {
             printf("Invalid option\n");
             printUsage();
         }
     }
-
-    
-
-    // EncryptImage("homer-simpson.bmp", "test.bmp","cbc");
-    // DecryptImage("test.bmp", "test2.bmp","cbc");
-
-
     return 0;
 }
 
