@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 CC=/usr/local/Cellar/gcc/5.3.0/bin/gcc-5
 CFLAGS= -o 3.out -lssl -lcrypto -L/usr/local/opt/openssl/lib -I/usr/local/opt/openssl/include
 
@@ -22,6 +23,13 @@ test: build
 	diff Mad_scientist.bmp Mad_scientist-decrypted-ecb.bmp && echo "Success"
 	diff Mad_scientist.bmp Mad_scientist-decrypted-cbc.bmp && echo "Success"
 
+testRandom: build
+	chmod +x randomTester.sh
+	./randomTester.sh
+
+
 clean:
 	rm -rf 3.out
 	rm -rf *crypted*
+	rm *[0-9].bmp
+	rm *.html
