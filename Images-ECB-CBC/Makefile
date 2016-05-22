@@ -17,7 +17,7 @@ build:
 	@$(CC) main.c $(CFLAGS)
 
 runTask:
-	@valgrind ./3.out -e homer-simpson.bmp homer-simpson-encrypted-cbc.bmp cbc 
+	@./3.out -e homer-simpson.bmp homer-simpson-encrypted-cbc.bmp cbc 
 	@./3.out -e homer-simpson.bmp homer-simpson-encrypted-ecb.bmp ecb
 	@./3.out -e Mad_scientist.bmp Mad_scientist-encrypted-cbc.bmp cbc
 	@./3.out -e Mad_scientist.bmp Mad_scientist-encrypted-ecb.bmp ecb

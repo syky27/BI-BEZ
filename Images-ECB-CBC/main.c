@@ -8,10 +8,10 @@
 void checkIfFileIsBitmap(FILE * file);
 void checkIfFileHasExecute(FILE * file);
 void printUsage(void);
-void EncryptImage(const char* inputFile, const char* outputFile, const char* mod);
-void DecryptImage(const char* inputFile, const char* outputFile,const char* mod);
+void encryptImage(const char* inputFile, const char* outputFile, const char* mod);
+void decryptImage(const char* inputFile, const char* outputFile,const char* mod);
 
-void EncryptImage(const char* inputFile, const char* outputFile, const char* mod) {
+void encryptImage(const char* inputFile, const char* outputFile, const char* mod) {
 
     unsigned char key[EVP_MAX_KEY_LENGTH] = "kjfahjkfhsajkhfkjas";
     unsigned char iv[EVP_MAX_IV_LENGTH] = "dkasjkd";
@@ -67,7 +67,7 @@ void EncryptImage(const char* inputFile, const char* outputFile, const char* mod
 
 }
 
-void DecryptImage(const char* inputFile, const char* outputFile,const char* mod) {
+void decryptImage(const char* inputFile, const char* outputFile,const char* mod) {
 
     unsigned char key[EVP_MAX_KEY_LENGTH] = "kjfahjkfhsajkhfkjas";
     unsigned char iv[EVP_MAX_IV_LENGTH] = "dkasjkd";
@@ -155,13 +155,13 @@ int main(int argc, char** argv) {
                 printf("Invalid cypher type\n");
                 printUsage();
             }
-            DecryptImage(argv[2], argv[3], argv[4]);
+            decryptImage(argv[2], argv[3], argv[4]);
         } else if (!strcmp(argv[1],"-e")) {
             if (strcmp(argv[4],"cbc") && strcmp(argv[4],"ecb")) {
                 printf("Invalid cypher type\n");
                 printUsage();
             }
-            EncryptImage(argv[2], argv[3], argv[4]);
+            encryptImage(argv[2], argv[3], argv[4]);
         } else {
             printf("Invalid option\n");
             printUsage();
