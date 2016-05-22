@@ -62,6 +62,7 @@ void EncryptImage(const char* inputFile, const char* outputFile, const char* mod
 
     free(plainText);
     free(cypheredText);
+    EVP_CIPHER_CTX_cleanup(&ctx); 
 
 
 }
@@ -118,6 +119,7 @@ void DecryptImage(const char* inputFile, const char* outputFile,const char* mod)
 
     free(plainText);
     free(cypheredText);
+    EVP_CIPHER_CTX_cleanup(&ctx); 
 
 }
 
