@@ -5,61 +5,64 @@
 #include <openssl/evp.h>
 #include <string.h>
 
-
 void checkIfFileIsBitmap(FILE * file);
 void checkIfFileHasExecute(FILE * file);
-
+void printUsage(void);
+void EncryptImage(const char* inputFile, const char* outputFile, const char* mod);
+void DecryptImage(const char* inputFile, const char* outputFile,const char* mod);
 
 void EncryptImage(const char* inputFile, const char* outputFile, const char* mod) {
 
     unsigned char key[EVP_MAX_KEY_LENGTH] = "kjfahjkfhsajkhfkjas";
     unsigned char iv[EVP_MAX_IV_LENGTH] = "dkasjkd";
     int tmpLength = 0;
-
     EVP_CIPHER_CTX ctx;
 
-    if(!strcmp(mod,"cbc"))
+    if(!strcmp(mod,"cbc")) {
         EVP_EncryptInit(&ctx, EVP_des_cbc(), key, iv);
-    else
+    } else {
         EVP_EncryptInit(&ctx, EVP_des_ecb(), key, iv);
+    }
 
-    unsigned char *ot;
-    unsigned long long input_file_size;
+    unsigned char *plainText;
+    unsigned long long inputFileSize;
 
-    FILE * pFile = fopen(inputFile, "rb");
-    FILE * outFile = fopen(outputFile, "wb");
+    FILE * ptrInputFile = fopen(inputFile, "rb");
+    FILE * ptrOutputFile = fopen(outputFile, "wb");
     
-    checkIfFileHasExecute(pFile);
-    checkIfFileHasExecute(outFile);
-    checkIfFileIsBitmap(pFile);
+    checkIfFileHasExecute(ptrInputFile);
+    checkIfFileHasExecute(ptrOutputFile);
+    checkIfFileIsBitmap(ptrInputFile);
 
-    fseek(pFile, 0, SEEK_END);
-    input_file_size = ftell(pFile);
-    rewind(pFile);
+    fseek(ptrInputFile, 0, SEEK_END);
+    inputFileSize = ftell(ptrInputFile);
+    rewind(ptrInputFile);
 
-    ot = (unsigned char*)malloc(input_file_size * (sizeof(unsigned char)));
-    fread(ot, sizeof(unsigned char), input_file_size, pFile);
-    fclose(pFile);
+    plainText = (unsigned char*)malloc(inputFileSize * (sizeof(unsigned char)));
+    fread(plainText, sizeof(unsigned char), inputFileSize, ptrInputFile);
+    fclose(ptrInputFile);
 
-    unsigned char *st = (unsigned char*)malloc(input_file_size * (sizeof(unsigned char)));
+    unsigned char *cypheredText = (unsigned char*)malloc(inputFileSize * (sizeof(unsigned char)));
     int blockbyte = 54;
-    int stLength = input_file_size;
-    int otLength = input_file_size - blockbyte;
+    int cypheredTextLength = inputFileSize;
+    int plainTextLength = inputFileSize - blockbyte;
 
-    fwrite (ot , sizeof(unsigned char), blockbyte, outFile);
+    fwrite (plainText , sizeof(unsigned char), blockbyte, ptrOutputFile);
 
-    unsigned char *ot_tmp = ot + blockbyte;
-    EVP_EncryptUpdate(&ctx,  st, &stLength, ot_tmp, otLength);
-    EVP_EncryptFinal(&ctx, &st[stLength], &tmpLength);
-    stLength += tmpLength;
+    unsigned char *plainText_tmp = plainText + blockbyte;
+    EVP_EncryptUpdate(&ctx,  cypheredText, &cypheredTextLength, plainText_tmp, plainTextLength);
+    EVP_EncryptFinal(&ctx, &cypheredText[cypheredTextLength], &tmpLength);
+    cypheredTextLength += tmpLength;
 
-    fwrite (st , sizeof(unsigned char), stLength, outFile);
+    fwrite (cypheredText , sizeof(unsigned char), cypheredTextLength, ptrOutputFile);
 
-    fflush(outFile);
-    fclose(outFile);
+    fflush(ptrOutputFile);
+    fclose(ptrOutputFile);
+    fclose(ptrInputFile);
 
-    free(ot);
-    free(st);
+    free(plainText);
+    free(cypheredText);
+
 
 }
 
@@ -67,60 +70,58 @@ void DecryptImage(const char* inputFile, const char* outputFile,const char* mod)
 
     unsigned char key[EVP_MAX_KEY_LENGTH] = "kjfahjkfhsajkhfkjas";
     unsigned char iv[EVP_MAX_IV_LENGTH] = "dkasjkd";
-    int i;
-
-
     int tmpLength = 0;
-
     EVP_CIPHER_CTX ctx;
 
-    if(!strcmp(mod,"cbc"))
+    if(!strcmp(mod,"cbc")){
         EVP_DecryptInit(&ctx, EVP_des_cbc(), key, iv);
-    else
+    } else {
         EVP_DecryptInit(&ctx, EVP_des_ecb(), key, iv);
+    }
 
 
-    unsigned char *ot;
-    long input_file_size;
-    FILE * pFile = fopen(inputFile, "rb");
-    FILE * outFile = fopen(outputFile, "wb");
+    unsigned char *plainText;
+    long inputFileSize;
+    FILE * ptrInputFile = fopen(inputFile, "rb");
+    FILE * ptrOutputFile = fopen(outputFile, "wb");
 
-    checkIfFileHasExecute(pFile);
-    checkIfFileHasExecute(outFile);
-    checkIfFileIsBitmap(pFile);
-
-
-    fseek(pFile, 0, SEEK_END);
-    input_file_size = ftell(pFile);
-    rewind(pFile);
+    checkIfFileHasExecute(ptrInputFile);
+    checkIfFileHasExecute(ptrOutputFile);
+    checkIfFileIsBitmap(ptrInputFile);
 
 
-    ot = (unsigned char*)malloc(input_file_size * (sizeof(unsigned char)));
-    fread(ot, sizeof(unsigned char), input_file_size, pFile);
-    fclose(pFile);
+    fseek(ptrInputFile, 0, SEEK_END);
+    inputFileSize = ftell(ptrInputFile);
+    rewind(ptrInputFile);
 
-    unsigned char *st = (unsigned char*)malloc(input_file_size * (sizeof(unsigned char)));
+
+    plainText = (unsigned char*)malloc(inputFileSize * (sizeof(unsigned char)));
+    fread(plainText, sizeof(unsigned char), inputFileSize, ptrInputFile);
+    fclose(ptrInputFile);
+
+    unsigned char *cypheredText = (unsigned char*)malloc(inputFileSize * (sizeof(unsigned char)));
     int blockbyte = 54;
-    int stLength = input_file_size;
-    int otLength = input_file_size - blockbyte;
+    int cypheredTextLength = inputFileSize;
+    int plainTextLength = inputFileSize - blockbyte;
 
-    fwrite (ot , sizeof(unsigned char), blockbyte, outFile);
-    unsigned char *ot_tmp = ot + blockbyte;
-    EVP_DecryptUpdate(&ctx,  st, &stLength, ot_tmp, otLength);
-    EVP_DecryptFinal(&ctx, &st[stLength], &tmpLength);
-    stLength += tmpLength;
+    fwrite (plainText , sizeof(unsigned char), blockbyte, ptrOutputFile);
+    unsigned char *plainText_tmp = plainText + blockbyte;
+    EVP_DecryptUpdate(&ctx,  cypheredText, &cypheredTextLength, plainText_tmp, plainTextLength);
+    EVP_DecryptFinal(&ctx, &cypheredText[cypheredTextLength], &tmpLength);
+    cypheredTextLength += tmpLength;
 
-    fwrite (st , sizeof(unsigned char), stLength, outFile);
+    fwrite (cypheredText , sizeof(unsigned char), cypheredTextLength, ptrOutputFile);
 
-    fflush(outFile);
-    fclose(outFile);
+    fflush(ptrOutputFile);
+    fclose(ptrOutputFile);
+    fclose(ptrInputFile);
 
-    free(ot);
-    free(st);
+    free(plainText);
+    free(cypheredText);
 
 }
 
-void printUsage(void){
+void printUsage(void) {
     printf("Usage: executable [-d || -e] inputFile outputFile [ecb || cbc]");
     exit(1);
 }

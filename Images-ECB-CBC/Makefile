@@ -1,13 +1,23 @@
 SHELL := /bin/bash
+UNAME := $(shell uname)
+
+ifeq ($(UNAME), Linux)
+CC=g++
+CFLAGS= -Wall -std=c++11 -lcrypto
+endif
+ifeq ($(UNAME), Darwin)
 CC=/usr/local/Cellar/gcc/5.3.0/bin/gcc-5
 CFLAGS= -o 3.out -lssl -lcrypto -L/usr/local/opt/openssl/lib -I/usr/local/opt/openssl/include
+endif
+
+
 
 
 build: 
 	@$(CC) main.c $(CFLAGS)
 
 runTask:
-	@./3.out -e homer-simpson.bmp homer-simpson-encrypted-cbc.bmp cbc
+	@./3.out -e homer-simpson.bmp homer-simpson-encrypted-cbc.bmp cbc 
 	@./3.out -e homer-simpson.bmp homer-simpson-encrypted-ecb.bmp ecb
 	@./3.out -e Mad_scientist.bmp Mad_scientist-encrypted-cbc.bmp cbc
 	@./3.out -e Mad_scientist.bmp Mad_scientist-encrypted-ecb.bmp ecb
