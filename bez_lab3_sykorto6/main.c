@@ -132,7 +132,7 @@ void printUsage(void) {
 void checkIfFileIsBitmap(FILE * file) {
     char BMTestArray[2];
     if (fread(BMTestArray, 1, 2, file) == 2){
-      if (!(BMTestArray[0] == 66 || BMTestArray[1] == 77)) {
+      if (!(BMTestArray[0] == 'B' || BMTestArray[1] == 'M')) {
           printf("Given file is not a bitmap\n");
           printUsage();
       }
