@@ -6,6 +6,9 @@
 #include <openssl/evp.h>
 #include <string.h>
 
+unsigned char key[EVP_MAX_KEY_LENGTH] = "D9YwLlaCrf5aJjBmsW4Oex46Ky3TTxwv79Zr0cr2Dz9SfsxRU4Hcol06GTvRClbJ";
+unsigned char iv[EVP_MAX_IV_LENGTH] = "KH5nVwGtTDVS4FEt";
+
 void checkIfFileIsBitmap(FILE * file);
 void checkIfFileHasExecute(FILE * file);
 void printUsage(void);
@@ -15,8 +18,7 @@ void decryptImage(const char* inputFile, const char* outputFile,const char* mod)
 void encryptImage(const char* inputFile, const char* outputFile, const char* mod) {
     
 
-    unsigned char key[EVP_MAX_KEY_LENGTH] = "D9YwLlaCrf5aJjBmsW4Oex46Ky3TTxwv79Zr0cr2Dz9SfsxRU4Hcol06GTvRClbJ";
-    unsigned char iv[EVP_MAX_IV_LENGTH] = "KH5nVwGtTDVS4FEt";
+
     int tmpLength = 0;
     EVP_CIPHER_CTX ctx;
 
@@ -71,8 +73,7 @@ void encryptImage(const char* inputFile, const char* outputFile, const char* mod
 
 void decryptImage(const char* inputFile, const char* outputFile,const char* mod) {
 
-    unsigned char key[EVP_MAX_KEY_LENGTH] = "D9YwLlaCrf5aJjBmsW4Oex46Ky3TTxwv79Zr0cr2Dz9SfsxRU4Hcol06GTvRClbJ";
-    unsigned char iv[EVP_MAX_IV_LENGTH] = "KH5nVwGtTDVS4FEt";
+
     int tmpLength = 0;
     EVP_CIPHER_CTX ctx;
 
