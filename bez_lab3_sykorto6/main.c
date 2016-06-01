@@ -17,19 +17,12 @@ void decryptImage(const char* inputFile, const char* outputFile,const char* mod)
 
 void encryptImage(const char* inputFile, const char* outputFile, const char* mod) {
     
-
-
-    int tmpLength = 0;
     EVP_CIPHER_CTX ctx;
-
     if(!strcmp(mod,"cbc")) {
         EVP_EncryptInit(&ctx, EVP_des_cbc(), key, iv);
     } else {
         EVP_EncryptInit(&ctx, EVP_des_ecb(), key, iv);
     }
-
-    unsigned char *plainText;
-    unsigned long long inputFileSize;
 
     FILE * ptrInputFile = fopen(inputFile, "rb");
     FILE * ptrOutputFile = fopen(outputFile, "wb");
@@ -38,71 +31,38 @@ void encryptImage(const char* inputFile, const char* outputFile, const char* mod
     checkIfFileHasExecute(ptrOutputFile);
     checkIfFileIsBitmap(ptrInputFile);
 
-    fseek(ptrInputFile, 0, SEEK_END);
-    inputFileSize = ftell(ptrInputFile);
-    rewind(ptrInputFile);
-
-    plainText = (unsigned char*)malloc(inputFileSize * (sizeof(unsigned char)));
-    fread(plainText, sizeof(unsigned char), inputFileSize, ptrInputFile);
-    fclose(ptrInputFile);
-
-    unsigned char *cypheredText = (unsigned char*)malloc(inputFileSize * (sizeof(unsigned char)));
-    int blockbyte = 54;
-    int cypheredTextLength = inputFileSize;
-    int plainTextLength = inputFileSize - blockbyte;
-
-    fwrite (plainText , sizeof(unsigned char), blockbyte, ptrOutputFile);
-
-
-    FILE * file1 = fopen(inputFile, "rb");
-    FILE * file2 = fopen(outputFile, "wb");
+    unsigned char * header = (unsigned char*)malloc(54 * (sizeof(unsigned char)));
+    fread(header, sizeof(unsigned char), 54, ptrInputFile);
+    fwrite (header, sizeof(unsigned char), 54, ptrOutputFile);
 
     unsigned char * inBuffer = (unsigned char*)malloc(32 * (sizeof(unsigned char)));
     unsigned char * outBuffer = (unsigned char*)malloc(32 * (sizeof(unsigned char)));
-    fwrite (file2 , sizeof(unsigned char), blockbyte, file2);
+
     int inBufferRead = 0;
-    unsigned char * position;
-    int fekal = 0;
-    while(!feof(file1))  {
-        fekal = fread( inBuffer, sizeof(unsigned char), 32,  file1);
-        inBufferRead += fekal;
-        EVP_EncryptUpdate(&ctx, outBuffer, &inBufferRead, position, 32);
-        fwrite(outBuffer, sizeof(unsigned char), inBufferRead, file2);
+    int actualReadSize = 0;
+    while(!feof(ptrInputFile))  {
+        actualReadSize = fread( inBuffer, sizeof(unsigned char), 32,  ptrInputFile);
+        inBufferRead += actualReadSize;
+        EVP_EncryptUpdate(&ctx, outBuffer, &inBufferRead, inBuffer, actualReadSize);
+        fwrite(outBuffer, sizeof(unsigned char), inBufferRead, ptrOutputFile);
     }
     
-
-    int totalSize = inBufferRead + blockbyte;
-
+    int tmpLength = 0;
     EVP_EncryptFinal(&ctx, outBuffer, &tmpLength);
-    fwrite (outBuffer, sizeof(unsigned char), tmpLength, file2);
+    fwrite (outBuffer, sizeof(unsigned char), tmpLength, ptrOutputFile);
     
-    // fflush(file1);
-    fflush(file2);
-    fclose(file2);
+    fflush(ptrOutputFile);
+    fclose(ptrOutputFile);
+    fclose(ptrInputFile);
 
-
-     // unsigned char *plainText_tmp = plainText + blockbyte;
-    // EVP_EncryptUpdate(&ctx,  cypheredText, &cypheredTextLength, plainText_tmp, plainTextLength);
-    // EVP_EncryptFinal(&ctx, &cypheredText[cypheredTextLength], &tmpLength);
-    // cypheredTextLength += tmpLength;
-
-    // fwrite (cypheredText , sizeof(unsigned char), cypheredTextLength, ptrOutputFile);
-
-    // fflush(ptrOutputFile);
-    // fclose(ptrOutputFile);
-
-
-    // free(plainText);
-    // free(cypheredText);
-    // EVP_CIPHER_CTX_cleanup(&ctx); 
-
-
+    free(header);
+    free(outBuffer);
+    free(inBuffer);
+    EVP_CIPHER_CTX_cleanup(&ctx); 
 }
 
 void decryptImage(const char* inputFile, const char* outputFile,const char* mod) {
 
-
-    int tmpLength = 0;
     EVP_CIPHER_CTX ctx;
 
     if(!strcmp(mod,"cbc")){
@@ -122,33 +82,34 @@ void decryptImage(const char* inputFile, const char* outputFile,const char* mod)
     checkIfFileIsBitmap(ptrInputFile);
 
 
-    fseek(ptrInputFile, 0, SEEK_END);
-    inputFileSize = ftell(ptrInputFile);
-    rewind(ptrInputFile);
 
+    unsigned char * header = (unsigned char*)malloc(54 * (sizeof(unsigned char)));
+    fread(header, sizeof(unsigned char), 54, ptrInputFile);
+    fwrite (header, sizeof(unsigned char), 54, ptrOutputFile);
 
-    plainText = (unsigned char*)malloc(inputFileSize * (sizeof(unsigned char)));
-    fread(plainText, sizeof(unsigned char), inputFileSize, ptrInputFile);
-    fclose(ptrInputFile);
+    unsigned char * inBuffer = (unsigned char*)malloc(32 * (sizeof(unsigned char)));
+    unsigned char * outBuffer = (unsigned char*)malloc(32 * (sizeof(unsigned char)));
 
-    unsigned char *cypheredText = (unsigned char*)malloc(inputFileSize * (sizeof(unsigned char)));
-    int blockbyte = 54;
-    int cypheredTextLength = inputFileSize;
-    int plainTextLength = inputFileSize - blockbyte;
-
-    fwrite (plainText , sizeof(unsigned char), blockbyte, ptrOutputFile);
-    unsigned char *plainText_tmp = plainText + blockbyte;
-    EVP_DecryptUpdate(&ctx,  cypheredText, &cypheredTextLength, plainText_tmp, plainTextLength);
-    EVP_DecryptFinal(&ctx, &cypheredText[cypheredTextLength], &tmpLength);
-    cypheredTextLength += tmpLength;
-
-    fwrite (cypheredText , sizeof(unsigned char), cypheredTextLength, ptrOutputFile);
-
+    int inBufferRead = 0;
+    int actualReadSize = 0;
+    while(!feof(ptrInputFile))  {
+        actualReadSize = fread( inBuffer, sizeof(unsigned char), 32,  ptrInputFile);
+        inBufferRead += actualReadSize;
+        EVP_DecryptUpdate(&ctx, outBuffer, &inBufferRead, inBuffer, actualReadSize);
+        fwrite(outBuffer, sizeof(unsigned char), inBufferRead, ptrOutputFile);
+    }
+    
+    int tmpLength = 0;
+    EVP_DecryptFinal(&ctx, outBuffer, &tmpLength);
+    fwrite (outBuffer, sizeof(unsigned char), tmpLength, ptrOutputFile);
+    
     fflush(ptrOutputFile);
     fclose(ptrOutputFile);
+    fclose(ptrInputFile);
 
-    free(plainText);
-    free(cypheredText);
+    free(header);
+    free(outBuffer);
+    free(inBuffer);
     EVP_CIPHER_CTX_cleanup(&ctx); 
 
 }
@@ -163,9 +124,11 @@ void checkIfFileIsBitmap(FILE * file) {
     if (fread(BMTestArray, 1, 2, file) == 2){
       if (!(BMTestArray[0] == 'B' || BMTestArray[1] == 'M')) {
           printf("Given file is not a bitmap\n");
+          rewind(file);
           printUsage();
       }
    }
+   rewind(file);
 }
 
 void checkIfFileHasExecute(FILE * file) {
