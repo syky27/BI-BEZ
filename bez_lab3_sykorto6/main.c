@@ -53,20 +53,48 @@ void encryptImage(const char* inputFile, const char* outputFile, const char* mod
 
     fwrite (plainText , sizeof(unsigned char), blockbyte, ptrOutputFile);
 
-    unsigned char *plainText_tmp = plainText + blockbyte;
-    EVP_EncryptUpdate(&ctx,  cypheredText, &cypheredTextLength, plainText_tmp, plainTextLength);
-    EVP_EncryptFinal(&ctx, &cypheredText[cypheredTextLength], &tmpLength);
-    cypheredTextLength += tmpLength;
 
-    fwrite (cypheredText , sizeof(unsigned char), cypheredTextLength, ptrOutputFile);
+    FILE * file1 = fopen(inputFile, "rb");
+    FILE * file2 = fopen(outputFile, "wb");
 
-    fflush(ptrOutputFile);
-    fclose(ptrOutputFile);
+    unsigned char * inBuffer = (unsigned char*)malloc(32 * (sizeof(unsigned char)));
+    unsigned char * outBuffer = (unsigned char*)malloc(32 * (sizeof(unsigned char)));
+    fwrite (file2 , sizeof(unsigned char), blockbyte, file2);
+    int inBufferRead = 0;
+    unsigned char * position;
+    int fekal = 0;
+    while(!feof(file1))  {
+        fekal = fread( inBuffer, sizeof(unsigned char), 32,  file1);
+        inBufferRead += fekal;
+        EVP_EncryptUpdate(&ctx, outBuffer, &inBufferRead, position, 32);
+        fwrite(outBuffer, sizeof(unsigned char), inBufferRead, file2);
+    }
+    
+
+    int totalSize = inBufferRead + blockbyte;
+
+    EVP_EncryptFinal(&ctx, outBuffer, &tmpLength);
+    fwrite (outBuffer, sizeof(unsigned char), tmpLength, file2);
+    
+    // fflush(file1);
+    fflush(file2);
+    fclose(file2);
 
 
-    free(plainText);
-    free(cypheredText);
-    EVP_CIPHER_CTX_cleanup(&ctx); 
+     // unsigned char *plainText_tmp = plainText + blockbyte;
+    // EVP_EncryptUpdate(&ctx,  cypheredText, &cypheredTextLength, plainText_tmp, plainTextLength);
+    // EVP_EncryptFinal(&ctx, &cypheredText[cypheredTextLength], &tmpLength);
+    // cypheredTextLength += tmpLength;
+
+    // fwrite (cypheredText , sizeof(unsigned char), cypheredTextLength, ptrOutputFile);
+
+    // fflush(ptrOutputFile);
+    // fclose(ptrOutputFile);
+
+
+    // free(plainText);
+    // free(cypheredText);
+    // EVP_CIPHER_CTX_cleanup(&ctx); 
 
 
 }
