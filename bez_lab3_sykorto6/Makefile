@@ -6,7 +6,7 @@ CC=g++
 CFLAGS= -o 3.out -lssl -lcrypto
 endif
 ifeq ($(UNAME), Darwin)
-CC=/usr/local/Cellar/gcc/5.3.0/bin/gcc-5
+CC=/usr/local/Cellar/gcc/9.3.0_1/bin/gcc-9
 CFLAGS= -o 3.out -lssl -lcrypto -L/usr/local/opt/openssl/lib -I/usr/local/opt/openssl/include
 endif
 

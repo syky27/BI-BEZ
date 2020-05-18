@@ -1,11 +1,7 @@
 #!/bin/bash
 for i in {1..100}
 do
-curl -s "http://lorempixel.com/index.php?generator=1&x=640&y=480&cat=" -o temp.html &&
-cat temp.html |
-sed -n 's/.*<img src="\([^" ]*\)".*/\1/p' |
-awk '{print "http://lorempixel.com/"$1}' |
-xargs curl -s -o $i.jpg;
+curl -sL "https://unsplash.it/200/300/?random" -o $i.jpg
 convert $i.jpg $i.bmp;
 rm -rf $i.jpg
 

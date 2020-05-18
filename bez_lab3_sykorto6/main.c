@@ -1,4 +1,4 @@
-// Syky.
+// Tomas Sykora (sykorto6).
 // https://github.com/syky27/BI-BEZ
 
 #include <stdio.h>
@@ -17,11 +17,17 @@ void decryptImage(const char* inputFile, const char* outputFile,const char* mod)
 
 void encryptImage(const char* inputFile, const char* outputFile, const char* mod) {
     
-    EVP_CIPHER_CTX ctx;
+
+        EVP_CIPHER_CTX *ctx;
+
+
+     ctx = EVP_CIPHER_CTX_new();
+     EVP_EncryptInit_ex(ctx, EVP_idea_cbc(), NULL, key, iv);
+
     if(!strcmp(mod,"cbc")) {
-        EVP_EncryptInit(&ctx, EVP_des_cbc(), key, iv);
+        EVP_EncryptInit_ex(ctx, EVP_des_cbc(),NULL, key, iv);
     } else {
-        EVP_EncryptInit(&ctx, EVP_des_ecb(), key, iv);
+        EVP_EncryptInit_ex(ctx, EVP_des_ecb(),NULL, key, iv);
     }
 
     FILE * ptrInputFile = fopen(inputFile, "rb");
@@ -43,12 +49,12 @@ void encryptImage(const char* inputFile, const char* outputFile, const char* mod
     while(!feof(ptrInputFile))  {
         actualReadSize = fread( inBuffer, sizeof(unsigned char), 32,  ptrInputFile);
         inBufferRead += actualReadSize;
-        EVP_EncryptUpdate(&ctx, outBuffer, &inBufferRead, inBuffer, actualReadSize);
+        EVP_EncryptUpdate(ctx, outBuffer, &inBufferRead, inBuffer, actualReadSize);
         fwrite(outBuffer, sizeof(unsigned char), inBufferRead, ptrOutputFile);
     }
     
     int tmpLength = 0;
-    EVP_EncryptFinal(&ctx, outBuffer, &tmpLength);
+    EVP_EncryptFinal_ex(ctx, outBuffer, &tmpLength);
     fwrite (outBuffer, sizeof(unsigned char), tmpLength, ptrOutputFile);
     
     fflush(ptrOutputFile);
@@ -58,17 +64,19 @@ void encryptImage(const char* inputFile, const char* outputFile, const char* mod
     free(header);
     free(outBuffer);
     free(inBuffer);
-    EVP_CIPHER_CTX_cleanup(&ctx); 
+    EVP_CIPHER_CTX_free(ctx);
+    
 }
 
 void decryptImage(const char* inputFile, const char* outputFile,const char* mod) {
 
-    EVP_CIPHER_CTX ctx;
+     EVP_CIPHER_CTX *ctx;
+     ctx = EVP_CIPHER_CTX_new();
 
     if(!strcmp(mod,"cbc")){
-        EVP_DecryptInit(&ctx, EVP_des_cbc(), key, iv);
+        EVP_DecryptInit_ex(ctx, EVP_des_cbc(), NULL,  key, iv);
     } else {
-        EVP_DecryptInit(&ctx, EVP_des_ecb(), key, iv);
+        EVP_DecryptInit_ex(ctx, EVP_des_ecb(), NULL, key, iv);
     }
 
 
@@ -95,12 +103,12 @@ void decryptImage(const char* inputFile, const char* outputFile,const char* mod)
     while(!feof(ptrInputFile))  {
         actualReadSize = fread( inBuffer, sizeof(unsigned char), 32,  ptrInputFile);
         inBufferRead += actualReadSize;
-        EVP_DecryptUpdate(&ctx, outBuffer, &inBufferRead, inBuffer, actualReadSize);
+        EVP_DecryptUpdate(ctx, outBuffer, &inBufferRead, inBuffer, actualReadSize);
         fwrite(outBuffer, sizeof(unsigned char), inBufferRead, ptrOutputFile);
     }
     
     int tmpLength = 0;
-    EVP_DecryptFinal(&ctx, outBuffer, &tmpLength);
+    EVP_DecryptFinal_ex(ctx, outBuffer, &tmpLength);
     fwrite (outBuffer, sizeof(unsigned char), tmpLength, ptrOutputFile);
     
     fflush(ptrOutputFile);
@@ -110,7 +118,7 @@ void decryptImage(const char* inputFile, const char* outputFile,const char* mod)
     free(header);
     free(outBuffer);
     free(inBuffer);
-    EVP_CIPHER_CTX_cleanup(&ctx); 
+    EVP_CIPHER_CTX_free(ctx);
 
 }
 
