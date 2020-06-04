@@ -19,7 +19,8 @@ int Decode(char *inputFile, char *keyFile)
     FILE * out_file;
     char *name = "decrypted_message";
     EVP_PKEY * privkey;
-    EVP_CIPHER_CTX ctx;
+    EVP_CIPHER_CTX *ctx;
+    ctx = EVP_CIPHER_CTX_new();
     const EVP_CIPHER *type = EVP_aes_128_cbc();
     uint32_t eklen_n;
     unsigned char out[MAX + EVP_MAX_IV_LENGTH],  in[MAX];
@@ -66,8 +67,8 @@ int Decode(char *inputFile, char *keyFile)
         return 1;
     }
 
-    EVP_CIPHER_CTX_init(&ctx);
-    if (!EVP_OpenInit(&ctx, type, my_ek, my_ekl, iv, privkey)){
+    EVP_CIPHER_CTX_init(ctx);
+    if (!EVP_OpenInit(ctx, type, my_ek, my_ekl, iv, privkey)){
         printf("Error: Opening EVP\n");
         return 1;
     }
@@ -83,7 +84,7 @@ int Decode(char *inputFile, char *keyFile)
         return 1;
     }
 
-    if (!EVP_OpenUpdate(&ctx, out, &outlen, in, inlen)){
+    if (!EVP_OpenUpdate(ctx, out, &outlen, in, inlen)){
         printf("Error: EVP Openupdate\n");
         return 1;
     }
@@ -93,7 +94,7 @@ int Decode(char *inputFile, char *keyFile)
         return 1;
     }
 
-    if (!EVP_OpenFinal(&ctx, out, &outlen)){
+    if (!EVP_OpenFinal(ctx, out, &outlen)){
         printf("Error\n");
         return 1;
     }
@@ -109,7 +110,7 @@ int Decode(char *inputFile, char *keyFile)
     fclose(fin);
     fclose(out_file);
     EVP_PKEY_free(privkey);
-    EVP_CIPHER_CTX_cleanup(&ctx);
+    EVP_CIPHER_CTX_cleanup(ctx);
     EVP_cleanup();
 
     return 0;

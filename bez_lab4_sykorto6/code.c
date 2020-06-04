@@ -19,7 +19,8 @@ int Code(char *inputFile, char *keyFile)
     FILE * out_file;
     char *name = "encrypted_message";
     EVP_PKEY * pubkey;
-    EVP_CIPHER_CTX ctx;
+    EVP_CIPHER_CTX *ctx;
+    ctx = EVP_CIPHER_CTX_new();
 
     const EVP_CIPHER *type = EVP_aes_128_cbc();
 
@@ -57,8 +58,8 @@ int Code(char *inputFile, char *keyFile)
         return 1;
     }
 
-    EVP_CIPHER_CTX_init(&ctx);
-    if (!EVP_SealInit( &ctx, type, &my_ek, &my_ekl, iv, &pubkey, 1)){
+    EVP_CIPHER_CTX_init(ctx);
+    if (!EVP_SealInit( ctx, type, &my_ek, &my_ekl, iv, &pubkey, 1)){
         printf("Error Buffer overflow maybe?\n");
         return 1;
     }
@@ -79,7 +80,7 @@ int Code(char *inputFile, char *keyFile)
         return 1;
     }
 
-    if (!EVP_SealUpdate(&ctx, bufferout, &bufferlen, in, inlen)){
+    if (!EVP_SealUpdate(ctx, bufferout, &bufferlen, in, inlen)){
         printf("Error\n");
         return 1;
     }
@@ -89,7 +90,7 @@ int Code(char *inputFile, char *keyFile)
         return 1;
     }
 
-    if (!EVP_SealFinal(&ctx, bufferout, &bufferlen)){
+    if (!EVP_SealFinal(ctx, bufferout, &bufferlen)){
         printf("Error\n");
         return 1;
     }
@@ -103,7 +104,7 @@ int Code(char *inputFile, char *keyFile)
     free(my_ek);
     fclose(out_file);
     EVP_PKEY_free(pubkey);
-    EVP_CIPHER_CTX_cleanup(&ctx);
+    EVP_CIPHER_CTX_cleanup(ctx);
     EVP_cleanup();
 
 
