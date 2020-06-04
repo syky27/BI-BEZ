@@ -1,11 +1,11 @@
 HTTP/1.1 200 OK
-Date: Tue, 12 May 2015 11:36:59 GMT
+Date: Thu, 04 Jun 2020 10:15:12 GMT
 Server: Apache/2.2.22 (Debian)
 X-Content-Type-Options: nosniff
 X-Powered-By: PHP/5.3.3-7+squeeze19
-Set-Cookie: SESSbf2ebbf8dd5585ca6ab173dff7f97726=0e9m6chv8jo2avp6ibi2p0f6f6; expires=Thu, 04-Jun-2015 15:10:19 GMT; path=/; domain=.fit.cvut.cz
+Set-Cookie: SESSbf2ebbf8dd5585ca6ab173dff7f97726=3plbmv9ihr9chvvj5ecmjm8lm7; expires=Sat, 27-Jun-2020 13:48:32 GMT; path=/; domain=.fit.cvut.cz
 Expires: Sun, 19 Nov 1978 05:00:00 GMT
-Last-Modified: Tue, 12 May 2015 11:36:59 GMT
+Last-Modified: Thu, 04 Jun 2020 10:15:12 GMT
 Cache-Control: store, no-cache, must-revalidate
 Cache-Control: post-check=0, pre-check=0
 Vary: Accept-Encoding
@@ -17,7 +17,7 @@ Content-Type: text/html; charset=utf-8
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="cs" lang="cs" dir="ltr">
   <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Informace a odkazy | Fakulta informačních technologií ČVUT</title>
+    <title>Důležité odkazy | Fakulta informačních technologií ČVUT</title>
     <link rel="alternate" type="application/rss+xml" title="Novinky FIT ČVUT" href="/rss-novinky.xml" /> 
 <link rel="alternate" type="application/rss+xml" title="Stránky FIT ČVUT" href="/rss-stranky.xml" /> 
 <link rel="alternate" type="application/rss+xml" title="News Feed FIT ČVUT" href="/rss-news.xml" /> 
@@ -40,7 +40,7 @@ Content-Type: text/html; charset=utf-8
 <link type="text/css" rel="stylesheet" media="print" href="/themes/fit/print.css?d" />
     <script type="text/javascript" src="/misc/jquery.js?d"></script>
 <script type="text/javascript" src="/misc/drupal.js?d"></script>
-<script type="text/javascript" src="/sites/default/files/languages/cs_d6e7f157870e1996fa55ff3da58240ee.js?d"></script>
+<script type="text/javascript" src="/sites/default/files/languages/cs_f8d505b806d1de1afbde1faae2d8bf32.js?d"></script>
 <script type="text/javascript" src="/sites/all/modules/lightbox2/js/lightbox.js?d"></script>
 <script type="text/javascript" src="/sites/all/modules/extlink/extlink.js?d"></script>
 <script type="text/javascript">
@@ -51,7 +51,7 @@ jQuery.extend(Drupal.settings, { "basePath": "/", "lightbox2": { "rtl": "0", "fi
     <!--[if lt IE 8]>
       <link type="text/css" rel="stylesheet" media="all" href="/themes/fit/fix-ie.css" />    <![endif]-->
   </head>
-  <body>
+  <body class="sidebar-left">
 
 <!-- Layout -->
   <div class="center">
@@ -87,7 +87,7 @@ jQuery.extend(Drupal.settings, { "basePath": "/", "lightbox2": { "rtl": "0", "fi
  <input type="text" maxlength="128" name="search_block_form" id="edit-search-block-form-1" size="15" value="" title="Zadejte hledaný termín." class="form-text" />
 </div>
 <input type="submit" name="op" id="edit-submit" value="Vyhledat"  class="form-submit" />
-<input type="hidden" name="form_build_id" id="form-WcavqS17AwtQUG8zSl3Sv_E26L37u4uUSU84GD0UfZ4" value="form-WcavqS17AwtQUG8zSl3Sv_E26L37u4uUSU84GD0UfZ4"  />
+<input type="hidden" name="form_build_id" id="form-t10LkJPWpAvxI4CdcqbinG1Nm4SQCHGTo_9HtC6wYvY" value="form-t10LkJPWpAvxI4CdcqbinG1Nm4SQCHGTo_9HtC6wYvY"  />
 <input type="hidden" name="form_id" id="edit-search-block-form" value="search_block_form"  />
   
 </div>
@@ -102,7 +102,7 @@ jQuery.extend(Drupal.settings, { "basePath": "/", "lightbox2": { "rtl": "0", "fi
   <ul class="menu"><li class="leaf first menu-mlid-142 has-children"><a href="/" title="">Fakulta</a></li>
 <li class="leaf menu-mlid-1032 has-children"><a href="/aktualne" title="">Aktuálně</a></li>
 <li class="leaf menu-mlid-1095 has-children"><a href="/zajemce/proc-studovat-na-fit/proc-fit" title="Zájemci o studium">Zájemci o studium</a></li>
-<li class="leaf menu-mlid-509 has-children active-trail"><a href="/student/studijni/kontakt" title="" class="active-trail">Student</a></li>
+<li class="leaf menu-mlid-509 has-children active-trail"><a href="/sto" title="" class="active-trail">Student</a></li>
 <li class="leaf menu-mlid-137 has-children"><a href="/zamestnanec" title="Zaměstnanec">Zaměstnanec</a></li>
 <li class="leaf last menu-mlid-138 has-children"><a href="/pr" title="Veřejnost a média">Média</a></li>
 </ul></div>
@@ -112,15 +112,14 @@ jQuery.extend(Drupal.settings, { "basePath": "/", "lightbox2": { "rtl": "0", "fi
 
 
   <div class="content"><div class="menu-block-2 menu-name-primary-links parent-mlid-0 menu-level-2">
-  <ul class="menu"><li class="leaf first menu-mlid-407 has-children"><a href="/student/studijni/kontakt" title="Studijní odd.">Studijní</a></li>
+  <ul class="menu"><li class="leaf first menu-mlid-407 has-children"><a href="/sto" title="Studijní odd.">Studijní</a></li>
 <li class="leaf menu-mlid-653 has-children"><a href="/student/novacek" title="">Nováček</a></li>
 <li class="leaf menu-mlid-249 has-children"><a href="/student/bakalarsky-program" title="Bc. program">Bakalář</a></li>
 <li class="leaf menu-mlid-759 has-children"><a href="/student/magistersky-program" title="Průchody studijními obory magisterského studijního programu">Magistr</a></li>
 <li class="leaf menu-mlid-483"><a href="/student/rozvrh" title="">Rozvrh</a></li>
-<li class="leaf menu-mlid-408 active active-trail"><a href="/student/odkazy" title="Informace a odkazy" class="active-trail active">Odkazy</a></li>
+<li class="leaf menu-mlid-408 has-children active active-trail"><a href="/student/odkazy" title="Informace a odkazy" class="active-trail active">Odkazy</a></li>
 <li class="leaf menu-mlid-573"><a href="/student/nabidky_firmy" title="">Nabídky firem</a></li>
-<li class="leaf menu-mlid-933 has-children"><a href="/student/prednasky-z-praxe" title="">Přednášky z praxe</a></li>
-<li class="leaf last menu-mlid-656"><a href="/student/stipendia" title="">Stipendia</a></li>
+<li class="leaf last menu-mlid-656 has-children"><a href="/student/stipendia" title="">Stipendium</a></li>
 </ul></div>
 </div>
 </div>
@@ -132,59 +131,64 @@ jQuery.extend(Drupal.settings, { "basePath": "/", "lightbox2": { "rtl": "0", "fi
                 </div>
       </div> <!-- /header -->
       
-      <div class="breadcrumb"><strong> › <a href="http://www.cvut.cz">ČVUT</a></strong> &raquo; <a href="/">FIT</a>  &raquo; <a href="/student/studijni/kontakt">Student</a> &raquo; <a href="/student/odkazy" class="active">Odkazy</a><div style="float: right;margin:0 20px;"><img src="/themes/fit/images/feed-icon-14x14.png" alt="RSS" style="vertical-align: middle;" /> <a href="/rss-novinky.xml">Novinky</a>&nbsp;&nbsp;&nbsp;<img src="/themes/fit/images/feed-icon-14x14.png" alt="RSS" style="vertical-align: middle;" /> <a href="/rss-news.xml">News</a></div></div>      
+      <div class="breadcrumb"><strong> › <a href="http://www.cvut.cz">ČVUT</a></strong> &raquo; <a href="/">FIT</a>  &raquo; <a href="/sto">Student</a> &raquo; <a href="/student/odkazy" class="active">Odkazy</a><div style="float: right;margin:0 20px;"><img src="/themes/fit/images/feed-icon-14x14.png" alt="RSS" style="vertical-align: middle;" /> <a href="/rss-novinky.xml">Novinky</a>&nbsp;&nbsp;&nbsp;<img src="/themes/fit/images/feed-icon-14x14.png" alt="RSS" style="vertical-align: middle;" /> <a href="/rss-news.xml">News</a></div></div>      
       <div id="center" class="webcontent">
       
+              <div id="sidebar-left" class="sidebar">
+          <div id="block-menu_block-3" class="clear-block block block-menu_block">
+
+
+  <div class="content"><div class="menu-block-3 menu-name-primary-links parent-mlid-0 menu-level-3">
+  <ul class="menu"><li class="leaf first menu-mlid-2082"><a href="/student/odkazy_2082#studium" title="Důležité odkazy">Studium</a></li>
+<li class="leaf menu-mlid-2083"><a href="/student/odkazy_2083#stipendia" title="Důležité odkazy">Stipendia</a></li>
+<li class="leaf menu-mlid-2084"><a href="/student/odkazy_2084#pocitacove-prostredi" title="Důležité odkazy">Počítačové prostředí</a></li>
+<li class="leaf menu-mlid-2085"><a href="/student/odkazy_2085#dalsi-soucasti" title="Důležité odkazy">Další součásti ČVUT</a></li>
+<li class="leaf last menu-mlid-2086"><a href="/student/odkazy_2086#ostatni" title="Důležité odkazy">Ostatní</a></li>
+</ul></div>
+</div>
+</div>
+        </div>
        
         
                 
           
-      <div class="content-text ">          
-      <h1>Informace a odkazy</h1>         <div id="node-319" class="node">
+      <div class="content-text hasleft">          
+      <h1>Důležité odkazy</h1>         <div id="node-319" class="node">
 
-    <p>&nbsp;</p>
+    <h2 id="studium">Studium</h2>
 <ul>
-<li>
-		Informačn&iacute; syst&eacute;m pro ověřen&iacute; n&aacute;roku na ubytovac&iacute; stipendium <a href="https://private.cvut.cz/">https://private.cvut.cz/</a></li>
-<li>
-		Informačn&iacute; a studijn&iacute; syst&eacute;m KOS <a href="https://kos.cvut.cz">https://kos.cvut.cz</a></li>
-<li>
-		Edux serverov&yacute; cluster pro podporu v&yacute;uky na FIT <a href="http://edux.fit.cvut.cz/">http://edux.fit.cvut.cz</a></li>
-<li>
-		Ankety hodnocen&iacute; v&yacute;uky na ČVUT <a href="https://anketa.cvut.cz">https://anketa.cvut.cz</a></li>
-<li>
-		Informace o poč&iacute;tačov&eacute;m prostřed&iacute; FIT <a href="http://it.fit.cvut.cz">http://it.fit.cvut.cz</a></li>
-<li>
-		Doučov&aacute;n&iacute; &nbsp;nab&iacute;dka - popt&aacute;vka<sup style="color:red">nov&eacute;</sup>&nbsp;-&nbsp;<a href="http://www.cips.cvut.cz/doucovani/">http://www.cips.cvut.cz/doucovani/</a></li>
-<li>
-		Průvodce prv&aacute;ka 2010 <a href="http://fit.cvut.cz/sites/default/files/2010-05_a5pruvodce-prvaka_sazba_web.pdf">pdf. (8 MB)</a></li>
-<li>
-		Free lecture notes, exams, and videos from MIT <a href="http://ocw.mit.edu/OcwWeb/web/home/home/index.htm">http://ocw.mit.edu/OcwWeb/web/home/home/index.htm</a></li>
-<li>
-		Audiovizu&aacute;ln&iacute; centrum studentů ČVUT <a href="http://www.avc-cvut.cz/">http://www.avc-cvut.cz/</a></li>
-<li>
-		Spr&aacute;va &uacute;čelov&yacute;ch zař&iacute;zen&iacute; (koleje a menzy) <a href="http://suz.cvut.cz">http://suz.cvut.cz</a></li>
-<li>
-		&Uacute;stav tělesn&eacute; v&yacute;chovy a sportu ČVUT <a href="http://www.utvs.cvut.cz">http://www.utvs.cvut.cz</a></li>
-<li>
-		Vydavatelstv&iacute; průkazů <a href="http://www.cvut.cz/informace-pro-studenty/prukazy">http://www.cvut.cz/informace-pro-studenty/prukazy</a></li>
-<li>
-		Kari&eacute;rn&iacute; centrum ČVUT <a href="http://www.kariernicentrum.cz">http://www.kariernicentrum.cz</a></li>
-<li>
-		Centrum informačn&iacute;ch a poradensk&yacute;ch služeb ČVUT <a href="http://www.cips.cvut.cz">http://www.cips.cvut.cz</a></li>
-<li>
-		Studium v zahranič&iacute; <a href="http://www.cvut.cz/informace-pro-studenty/studium-v-zahranici">http://www.cvut.cz/informace-pro-studenty/studium-v-zahranici</a></li>
-<li>
-		Stipendia, nadace, granty, fondy <a href="http://www.cvut.cz/informace-pro-studenty/granty">http://www.cvut.cz/informace-pro-studenty/granty</a></li>
-<li>
-		FIT na <a href="http://www.facebook.com/pages/Praha-Czech-Republic/Fakulta-informacnich-technologii/167431340661">Facebooku</a></li>
-<li>
-		Cviky pro zdrav&iacute; <a href="http://www.cvikyprozdravi.cz">http://www.cvikyprozdravi.cz</a></li>
-<li>
-		Středisko pro podporu studentů se specifick&yacute;mi potřebami ELSA <a href="http://www.elsa.cvut.cz" title="http://www.elsa.cvut.cz">http://www.elsa.cvut.cz</a><br />
-		&nbsp;</li>
+<li><a href="https://kos.cvut.cz">Informační a&nbsp;studijní systém KOS</a></li>
+<li><a href="https://courses.fit.cvut.cz/">FIT&nbsp;ČVUT Course Pages</a></li>
+<li><a href="https://anketa.cvut.cz">Anketa hodnocení výuky na ČVUT</a></li>
+<li><a href="https://www.cvut.cz/studium-v-zahranici">Studium v&nbsp;zahraničí</a></li>
+<li><a href="http://www.cips.cvut.cz/doucovani/">Nabídka doučování</a></li>
+<li><a href="http://www.elsa.cvut.cz">Středisko pro podporu studentů se specifickými potřebami ELSA</a></li>
+<li><a href="http://www.cips.cvut.cz">Centrum informačních a&nbsp;poradenských služeb ČVUT</a></li>
 </ul>
-<p>&nbsp;</p>
+<h2 id="stipendia">Stipendia</h2>
+<ul>
+<li><a href="https://www.cvut.cz/nadace-granty-stipendia">Stipendia, nadace, granty, fondy</a></li>
+<li><a href="https://private.cvut.cz/">Informační systém pro ověření nároku na ubytovací stipendium</a></li>
+</ul>
+<h2 id="pocitacove-prostredi">Počítačové prostředí</h2>
+<ul>
+<li><a href="http://man.fit.cvut.cz">Informace o&nbsp;počítačovém prostředí FIT</a></li>
+<li><a href="https://profile.fit.cvut.cz">ICT profil</a></li>
+<li><a href="https://ist.cvut.cz/">Informační systémy a technologie ČVUT</a></li>
+</ul>
+<h2 id="dalsi-soucasti">Další součásti ČVUT a&nbsp;jiné instituce</h2>
+<ul>
+<li><a href="http://suz.cvut.cz">Správa účelových zařízení ČVUT</a>&nbsp;– koleje a&nbsp;menzy</li>
+<li><a href="http://www.utvs.cvut.cz">Ústav tělesné výchovy a&nbsp;sportu ČVUT</a></li>
+<li><a href="http://www.kariernicentrum.cz">Kariérní centrum ČVUT</a></li>
+<li><a href="http://www.avc-cvut.cz/">Audiovizuální centrum studentů ČVUT</a></li>
+</ul>
+<h2 id="ostatni">Ostatní</h2>
+<ul>
+<li><a href="http://knihovna.cvut.cz/katalogy-a-databaze/prehled-databazi/katalog-informacnich-zdroju">Informační zdroje na stránkách Ústřední knihovny ČVUT</a></li>
+<li><a href="https://app.grammarly.com/">Grammarly</a>&nbsp;– on-line služba poskytující pokročilou korekturu anglické gramatiky</li>
+<li><a href="http://ocw.mit.edu/OcwWeb/web/home/home/index.htm">Bezplatné přednášky, testy a videa z MIT</a></li>
+</ul>
 </div>
       </div>
         
@@ -197,15 +201,17 @@ jQuery.extend(Drupal.settings, { "basePath": "/", "lightbox2": { "rtl": "0", "fi
 
   <div class="content"><ul class="menu"><li class="leaf first"><a href="/sitemap" title="">Mapa stránek</a></li>
 <li class="leaf"><a href="/fakulta/kontakty" title="">Kontakty</a></li>
-<li class="leaf last"><a href="https://anketa.cvut.cz/" title="">Anketa hodnocení výuky ČVUT</a></li>
+<li class="leaf"><a href="/fakulta/partneri" title="">Partneři</a></li>
+<li class="leaf last"><a href="http://casopis.fit.cvut.cz/" title="">Časopis Buď FIT</a></li>
 </ul></div>
 </div>
 <div id="block-menu-menu-secondary-links-2" class="clear-block block block-menu">
 
 
-  <div class="content"><ul class="menu"><li class="leaf first"><a href="/fakulta/deska/podminky_prijeti" title="">Přijímací řízení</a></li>
-<li class="leaf"><a href="https://www.fit.cvut.cz/forum/" title="">Fórum</a></li>
-<li class="leaf last"><a href="http://www.facebook.com/pages/Praha-Czech-Republic/Fakulta-informacnich-technologii/167431340661" title="">Facebook</a></li>
+  <div class="content"><ul class="menu"><li class="leaf first"><a href="http://www.facebook.com/pages/Praha-Czech-Republic/Fakulta-informacnich-technologii/167431340661" title="">Facebook</a></li>
+<li class="leaf"><a href="https://twitter.com/FIT_CTU" title="">Twitter</a></li>
+<li class="leaf"><a href="https://www.instagram.com/fit_ctu/" title="">Instagram</a></li>
+<li class="leaf last"><a href="https://www.youtube.com/channel/UCP6s0X3Xt3V2LirpPZBbTrA" title="">YouTube</a></li>
 </ul></div>
 </div>
 <div id="block-block-3" class="clear-block block block-block">
@@ -224,7 +230,7 @@ jQuery.extend(Drupal.settings, { "basePath": "/", "lightbox2": { "rtl": "0", "fi
       <div class="administer center">
             
       <br/>
-      Poslední změna: 12.11.2014, 14:48      
+      Poslední změna: 1.7.2019, 9:48      
            
                           
        <br/><br/><br/><br/>

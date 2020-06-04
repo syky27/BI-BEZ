@@ -4,13 +4,14 @@
 #include <time.h>  
  
 
-int Sifra(const char text[30] )
+int Cypher(const char text[30] )
 {
   int i;
 
   char hashFunction[] = "sha256";  // zvolena hashovaci funkce ("sha1", "md5" ...)
- 
-  EVP_MD_CTX ctx;  // struktura kontextu
+
+  EVP_MD_CTX *ctx;  // struktura kontextu
+  ctx = EVP_MD_CTX_create();
   const EVP_MD *type; // typ pouzite hashovaci funkce
   unsigned char hash[EVP_MAX_MD_SIZE]; // char pole pro hash - 64 bytu (max pro sha 512)
   int length;  // vysledna delka hashe
@@ -27,9 +28,9 @@ int Sifra(const char text[30] )
   }
  
   /* Provedeni hashovani */
-  EVP_DigestInit(&ctx, type);  // nastaveni kontextu
-  EVP_DigestUpdate(&ctx, text, strlen(text));  // zahashuje text a ulozi do kontextu
-  EVP_DigestFinal(&ctx, hash, (unsigned int *) &length);  // zjiskani hashe z kontextu
+  EVP_DigestInit(ctx, type);  // nastaveni kontextu
+  EVP_DigestUpdate(ctx, text, strlen(text));  // zahashuje text a ulozi do kontextu
+  EVP_DigestFinal(ctx, hash, (unsigned int *) &length);  // zjiskani hashe z kontextu
  
   /* Vypsani vysledneho hashe */
   printf("Hash textu \"%s\" je: ", text);
@@ -56,7 +57,7 @@ int main(int argc, char *argv[]){
       {
           for(i=0;i<30;i++)
                 text[i]=(rand()% 26)+'a';
-          nalezeno=Sifra(text); 
+          nalezeno=Cypher(text); 
       }
           
 //"bizkomyoekxlhpgseqarbtchrklzax"
